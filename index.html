@@ -32,8 +32,7 @@
 
                 <input type="email" name="entry.1045781291" placeholder="Gmail Address (e.g. name@gmail.com)" pattern="[a-zA-Z0-9._%+-]+@gmail\.com" title="Please enter a valid Gmail address ending in @gmail.com" required>
 
-                <input type="tel" name="entry.1166974658" placeholder="WhatsApp Phone Number (with Country Code)" pattern="[0-9+\s()-]{10,20}" title="Please enter a valid phone number" required>
-
+                <input type="tel" name="entry.1166974658" placeholder="WhatsApp Phone Number (with Country Code)" pattern="^\+?[0-9\s\-\(\)]{10,20}$" minlength="10" maxlength="25" autocomplete="tel" title="Please enter a valid phone number (10 to 20 characters including country code)" required>
                 <select name="entry.1032812985" id="countrySelect" required onchange="window.onCountryChange()">
                     <option value="" disabled selected>Select Your Country</option>
                 </select>

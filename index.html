@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accenttalk Academy: The Confidence Curriculum</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="page-wrapper">
+        <!-- Minimalist Editorial Header Structure -->
+        <div class="brand-logo">Accenttalk</div>
+        
+        <div class="hero-header">
+            <h1>The Confidence Curriculum</h1>
+            
+            <!-- Header helper text wrapped to toggle off on form submission -->
+            <div id="header-helper-text">
+                <p class="hero-sub">A 2-Month Program with 100% Results – Book your counseling call to get the best course that can change you entirely.</p>
+                <div class="section-tag">
+                    <span class="dot"></span> Fill out the details below to schedule your counseling session:
+                </div>
+            </div>
+        </div>
+
+        <!-- PAGE 1: Registration Form Container -->
+        <div id="form-container">
+            <form id="webinarForm" action="https://docs.google.com/forms/d/e/1FAIpQLSe8V3sdBV39SrOncIFYaEHbQkVj_DwMdT4xZ-lS1eVHxazvUg/formResponse" method="POST" target="hidden_iframe">
+                
+                <input type="text" name="entry.2005620554" placeholder="Full Name" required>
+
+                <input type="email" name="entry.1045781291" placeholder="Gmail Address (e.g. name@gmail.com)" pattern="[a-zA-Z0-9._%+-]+@gmail\.com" title="Please enter a valid Gmail address ending in @gmail.com" required>
+
+                <input type="tel" name="entry.1166974658" placeholder="WhatsApp Phone Number (with Country Code)" pattern="[0-9+\s()-]{10,20}" title="Please enter a valid phone number" required>
+
+                <select name="entry.1032812985" id="countrySelect" required onchange="window.onCountryChange()">
+                    <option value="" disabled selected>Select Your Country</option>
+                </select>
+
+                <select name="entry.2133025000" id="stateSelect" required disabled onchange="window.onStateChange()">
+                    <option value="" disabled selected>Select Your State / Province</option>
+                </select>
+
+                <select name="entry.839337160" id="citySelect" required disabled>
+                    <option value="" disabled selected>Select Your City / Location</option>
+                </select>
+
+                <select name="entry.1315362441" required>
+                    <option value="" disabled selected>Current English Proficiency Level</option>
+                    <option value="Beginner">Beginner</option>
+                    <option value="Intermediate" selected>Intermediate</option>
+                    <option value="Advanced">Advanced</option>
+                </select>
+
+                <input type="text" name="entry.1308328719" placeholder="Your primary goal or biggest challenge?" required>
+
+                <input type="text" name="entry.1465285429" placeholder="Best Time for Counseling Call (e.g., Evening 6 PM - 8 PM)" required>
+                
+                <button type="submit">Book Counseling Call</button>
+            </form>
+        </div>
+
+        <!-- PAGE 2: Thank You Container -->
+        <div id="thankyou-container" style="display: none;">
+            <h2>Session Requested! 🎉</h2>
+            <p>Thank you. We have received your details and our team will reach out to you personally to schedule your counseling call.</p>
+            <p>In the meantime,check out our website to explore our courses:</p>
+            
+            <div class="thankyou-actions">
+                <a href="https://accenttalk.in/" target="_blank">
+                    <button type="button" class="website-btn">Explore Our Courses</button>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+
+    <!-- Merged Script -->
+    <script type="module">
+        import { Country, State, City } from 'https://cdn.jsdelivr.net/npm/country-state-city@3.2.1/+esm';
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const countrySelect = document.getElementById('countrySelect');
+            const countries = Country.getAllCountries();
+            
+            countries.forEach(country => {
+                let option = document.createElement('option');
+                option.value = country.name;
+                option.text = `${country.flag || ''} ${country.name}`;
+                option.dataset.isoCode = country.isoCode;
+                countrySelect.appendChild(option);
+            });
+        });
+
+        window.onCountryChange = function() {
+            const countrySelect = document.getElementById('countrySelect');
+            const stateSelect = document.getElementById('stateSelect');
+            const citySelect = document.getElementById('citySelect');
+            
+            const selectedOption = countrySelect.options[countrySelect.selectedIndex];
+            const countryCode = selectedOption.dataset.isoCode;
+
+            stateSelect.innerHTML = '<option value="" disabled selected>Select Your State / Province</option>';
+            citySelect.innerHTML = '<option value="" disabled selected>Select Your City / Location</option>';
+            stateSelect.disabled = true;
+            citySelect.disabled = true;
+
+            if (countryCode) {
+                const states = State.getStatesOfCountry(countryCode);
+                if (states && states.length > 0) {
+                    states.forEach(state => {
+                        let option = document.createElement('option');
+                        option.value = state.name;
+                        option.text = state.name;
+                        option.dataset.stateCode = state.isoCode;
+                        option.dataset.countryCode = countryCode;
+                        stateSelect.appendChild(option);
+                    });
+                    stateSelect.disabled = false;
+                } else {
+                    let option = document.createElement('option');
+                    option.value = countrySelect.value;
+                    option.text = "General / " + countrySelect.value;
+                    stateSelect.appendChild(option);
+                    stateSelect.disabled = false;
+                }
+            }
+        };
+
+        window.onStateChange = function() {
+            const stateSelect = document.getElementById('stateSelect');
+            const citySelect = document.getElementById('citySelect');
+            
+            const selectedOption = stateSelect.options[stateSelect.selectedIndex];
+            const stateCode = selectedOption.dataset.stateCode;
+            const countryCode = selectedOption.dataset.countryCode;
+
+            citySelect.innerHTML = '<option value="" disabled selected>Select Your City / Location</option>';
+            citySelect.disabled = true;
+
+            if (stateCode && countryCode) {
+                const cities = City.getCitiesOfState(countryCode, stateCode);
+                if (cities && cities.length > 0) {
+                    cities.forEach(city => {
+                        let option = document.createElement('option');
+                        option.value = city.name;
+                        option.text = city.name;
+                        citySelect.appendChild(option);
+                    });
+                    citySelect.disabled = false;
+                } else {
+                    let option = document.createElement('option');
+                    option.value = stateSelect.value;
+                    option.text = "General / " + stateSelect.value;
+                    citySelect.appendChild(option);
+                    citySelect.disabled = false;
+                }
+            }
+        };
+
+        const formForm = document.getElementById('webinarForm');
+        if (formForm) {
+            formForm.addEventListener('submit', function() {
+                setTimeout(function() {
+                    document.getElementById('header-helper-text').style.display = 'none';
+                    document.getElementById('form-container').style.display = 'none';
+                    document.getElementById('thankyou-container').style.display = 'block';
+                }, 500);
+            });
+        }
+    </script>
+</body>
+</html>

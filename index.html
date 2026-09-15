@@ -108,7 +108,7 @@
             width: 100%;
         }
         .phone-group .select-wrapper {
-            flex: 0 0 130px;
+            flex: 0 0 140px;
         }
         .phone-group input {
             flex: 1;
@@ -257,13 +257,13 @@
                 </div>
 
                 <div class="select-wrapper">
-                    <select name="entry.2133025000" id="stateSelect" required disabled>
+                    <select name="entry.2133025000" id="stateSelect" required>
                         <option value="" disabled selected>Select Your State / Province</option>
                     </select>
                 </div>
 
                 <div class="select-wrapper">
-                    <select name="entry.839337160" id="citySelect" required disabled>
+                    <select name="entry.839337160" id="citySelect" required>
                         <option value="" disabled selected>Select Your City / Location</option>
                     </select>
                 </div>
@@ -304,7 +304,7 @@
 
     <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
 
-    <!-- Reliable Mobile-Safe Script using public REST API data instead of heavy modules -->
+    <!-- Universal Cross-Platform Script (Works on Mac & iPhone Safari natively) -->
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             const countrySelect = document.getElementById('countrySelect');
@@ -316,18 +316,17 @@
             const webinarForm = document.getElementById('webinarForm');
 
             try {
-                // Fetching lightweight country and phone data safely from a public API that iOS loves
-                const response = await fetch('https://restcountries.com/v3.1/all?fields=name,cca2,idd,flags');
+                // Fetch worldwide countries cleanly via standard fetch
+                const response = await fetch('https://restcountries.com/v3.1/all?fields=name,cca2,idd');
                 const countries = await response.json();
 
-                // Sort countries alphabetically
+                // Sort countries alphabetically by common name
                 countries.sort((a, b) => a.name.common.localeCompare(b.name.common));
 
                 countries.forEach(country => {
                     const name = country.name.common;
                     const isoCode = country.cca2;
                     
-                    // Build phone code
                     let phoneCode = '';
                     if (country.idd && country.idd.root) {
                         phoneCode = country.idd.root + (country.idd.suffixes ? country.idd.suffixes[0] : '');
@@ -337,7 +336,6 @@
                     let option = document.createElement('option');
                     option.value = name;
                     option.text = name;
-                    option.dataset.isoCode = isoCode;
                     countrySelect.appendChild(option);
 
                     // Populate Phone Code Dropdown
@@ -352,33 +350,26 @@
                     }
                 });
 
-                // Dummy state/city fallback for universal compatibility
+                // Handle State and City input smoothly for all locations
                 countrySelect.addEventListener('change', () => {
-                    stateSelect.innerHTML = '<option value="" disabled selected>Select Your State / Province</option>';
-                    citySelect.innerHTML = '<option value="" disabled selected>Select Your City / Location</option>';
-                    
-                    let stateOpt = document.createElement('option');
-                    stateOpt.value = countrySelect.value;
-                    stateOpt.text = "General / " + countrySelect.value;
-                    stateSelect.appendChild(stateOpt);
-                    stateSelect.disabled = false;
-                    citySelect.disabled = false;
+                    const val = countrySelect.value;
+                    stateSelect.innerHTML = `<option value="${val}">${val} / General Region</option>`;
+                    citySelect.innerHTML = `<option value="${val}">${val} / General City</option>`;
                 });
 
-                stateSelect.addEventListener('change', () => {
-                    citySelect.innerHTML = '<option value="" disabled selected>Select Your City / Location</option>';
-                    let cityOpt = document.createElement('option');
-                    cityOpt.value = stateSelect.value;
-                    cityOpt.text = "General / " + stateSelect.value;
-                    citySelect.appendChild(cityOpt);
-                    citySelect.disabled = false;
-                });
+                // Pre-fill state/city defaults when user selects India by default
+                setTimeout(() => {
+                    if(countrySelect.value) {
+                        stateSelect.innerHTML = `<option value="${countrySelect.value}">${countrySelect.value} / General Region</option>`;
+                        citySelect.innerHTML = `<option value="${countrySelect.value}">${countrySelect.value} / General City</option>`;
+                    }
+                }, 300);
 
-            } catch (e) {
-                console.error("Could not load countries:", e);
+            } catch (err) {
+                console.error("Error loading countries:", err);
             }
 
-            // Form Submit Action
+            // Form Submit handler
             if (webinarForm) {
                 webinarForm.addEventListener('submit', function() {
                     const code = phoneCodeSelect.value;

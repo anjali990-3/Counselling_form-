@@ -2,24 +2,35 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    >
+
+    <meta name="format-detection" content="telephone=no">
 
     <title>Accenttalk Academy: The Confidence Curriculum</title>
 
-    <link rel="stylesheet" href="style.css?v=3">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Load JavaScript after HTML is ready -->
+    <script type="module" src="script.js"></script>
 </head>
 
 <body>
 
-    <div class="page-wrapper">
+    <main class="page-wrapper">
 
         <div class="brand-logo">
             Accenttalk
         </div>
 
-        <div class="hero-header">
+        <section class="hero-header">
 
-            <h1>The Confidence Curriculum</h1>
+            <h1>
+                The Confidence Curriculum
+            </h1>
 
             <div id="header-helper-text">
 
@@ -29,27 +40,26 @@
 
                 <div class="section-tag">
                     <span class="dot"></span>
-                    Fill out the details below to schedule your counseling session:
+                    <span>Fill out the details below to schedule your counseling session:</span>
                 </div>
 
             </div>
 
-        </div>
+        </section>
 
 
         <!-- FORM -->
-
-        <div id="form-container">
+        <section id="form-container">
 
             <form
                 id="webinarForm"
                 action="https://docs.google.com/forms/d/e/1FAIpQLSe8V3sdBV39SrOncIFYaEHbQkVj_DwMdT4xZ-lS1eVHxazvUg/formResponse"
                 method="POST"
                 target="hidden_iframe"
+                novalidate
             >
 
-                <!-- Full Name -->
-
+                <!-- FULL NAME -->
                 <input
                     type="text"
                     name="entry.2005620554"
@@ -59,37 +69,28 @@
                 >
 
 
-                <!-- Gmail -->
-
+                <!-- GMAIL -->
                 <input
                     type="email"
                     name="entry.1045781291"
                     placeholder="Gmail Address (e.g. name@gmail.com)"
-                    pattern="[a-zA-Z0-9._%+-]+@gmail\.com"
-                    title="Please enter a valid Gmail address ending in @gmail.com"
                     autocomplete="email"
                     required
                 >
 
 
                 <!-- PHONE -->
-
                 <div class="phone-group">
 
-                    <div class="select-wrapper phone-code-wrapper">
-
-                        <select
-                            id="phoneCodeSelect"
-                            aria-label="Country phone code"
-                            required
-                        >
-                            <option value="" disabled selected>
-                                Code
-                            </option>
-                        </select>
-
-                    </div>
-
+                    <select
+                        id="phoneCodeSelect"
+                        aria-label="Country phone code"
+                        required
+                    >
+                        <option value="" disabled selected>
+                            Code
+                        </option>
+                    </select>
 
                     <input
                         type="hidden"
@@ -97,13 +98,13 @@
                         id="fullPhoneInput"
                     >
 
-
                     <input
                         type="tel"
                         id="phoneNumberInput"
                         placeholder="WhatsApp Number"
                         inputmode="numeric"
-                        autocomplete="tel"
+                        autocomplete="tel-national"
+                        maxlength="12"
                         required
                     >
 
@@ -111,97 +112,68 @@
 
 
                 <!-- COUNTRY -->
-
-                <div class="select-wrapper">
-
-                    <select
-                        name="entry.1032812985"
-                        id="countrySelect"
-                        autocomplete="country-name"
-                        required
-                    >
-
-                        <option value="" disabled selected>
-                            Select Your Country
-                        </option>
-
-                    </select>
-
-                </div>
+                <select
+                    name="entry.1032812985"
+                    id="countrySelect"
+                    autocomplete="country-name"
+                    required
+                >
+                    <option value="" disabled selected>
+                        Select Your Country
+                    </option>
+                </select>
 
 
                 <!-- STATE -->
-
-                <div class="select-wrapper">
-
-                    <select
-                        name="entry.2133025000"
-                        id="stateSelect"
-                        required
-                        disabled
-                    >
-
-                        <option value="" disabled selected>
-                            Select Your State / Province
-                        </option>
-
-                    </select>
-
-                </div>
+                <select
+                    name="entry.2133025000"
+                    id="stateSelect"
+                    required
+                    disabled
+                >
+                    <option value="" disabled selected>
+                        Select Your State / Province
+                    </option>
+                </select>
 
 
                 <!-- CITY -->
-
-                <div class="select-wrapper">
-
-                    <select
-                        name="entry.839337160"
-                        id="citySelect"
-                        required
-                        disabled
-                    >
-
-                        <option value="" disabled selected>
-                            Select Your City / Location
-                        </option>
-
-                    </select>
-
-                </div>
+                <select
+                    name="entry.839337160"
+                    id="citySelect"
+                    required
+                    disabled
+                >
+                    <option value="" disabled selected>
+                        Select Your City / Location
+                    </option>
+                </select>
 
 
                 <!-- ENGLISH LEVEL -->
+                <select
+                    name="entry.1315362441"
+                    required
+                >
+                    <option value="" disabled>
+                        Current English Proficiency Level
+                    </option>
 
-                <div class="select-wrapper">
+                    <option value="Beginner">
+                        Beginner
+                    </option>
 
-                    <select
-                        name="entry.1315362441"
-                        required
-                    >
+                    <option value="Intermediate" selected>
+                        Intermediate
+                    </option>
 
-                        <option value="" disabled>
-                            Current English Proficiency Level
-                        </option>
-
-                        <option value="Beginner">
-                            Beginner
-                        </option>
-
-                        <option value="Intermediate" selected>
-                            Intermediate
-                        </option>
-
-                        <option value="Advanced">
-                            Advanced
-                        </option>
-
-                    </select>
-
-                </div>
+                    <option value="Advanced">
+                        Advanced
+                    </option>
+                </select>
 
 
                 <!-- GOAL -->
-
                 <input
                     type="text"
                     name="entry.1308328719"
@@ -210,8 +182,7 @@
                 >
 
 
-                <!-- COUNSELING TIME -->
-
+                <!-- COUNSELLING TIME -->
                 <input
                     type="text"
                     name="entry.1465285429"
@@ -220,22 +191,19 @@
                 >
 
 
-                <!-- SUBMIT -->
-
                 <button type="submit">
                     Book Counseling Call
                 </button>
 
             </form>
 
-        </div>
+        </section>
 
 
         <!-- THANK YOU -->
-
-        <div
+        <section
             id="thankyou-container"
-            style="display: none;"
+            hidden
         >
 
             <h2>
@@ -251,7 +219,7 @@
             </p>
 
             <p>
-                Join our WhatsApp group so that you don't miss the webinar on 13 September:
+                Join our WhatsApp group so that you don't miss the webinar.
             </p>
 
 
@@ -286,616 +254,18 @@
 
             </div>
 
-        </div>
+        </section>
 
-    </div>
+    </main>
 
 
-    <!-- Hidden Google Forms submission iframe -->
-
+    <!-- Hidden destination for Google Forms -->
     <iframe
         name="hidden_iframe"
         id="hidden_iframe"
-        style="display:none;"
+        title="Form submission"
+        hidden
     ></iframe>
-
-
-    <!-- =====================================================
-         COUNTRY / STATE / CITY JAVASCRIPT
-         ===================================================== -->
-
-    <script type="module">
-
-        import {
-            Country,
-            State,
-            City
-        } from 'https://cdn.jsdelivr.net/npm/country-state-city@3.2.1/+esm';
-
-
-        document.addEventListener('DOMContentLoaded', () => {
-
-            const countrySelect =
-                document.getElementById('countrySelect');
-
-            const phoneCodeSelect =
-                document.getElementById('phoneCodeSelect');
-
-            const stateSelect =
-                document.getElementById('stateSelect');
-
-            const citySelect =
-                document.getElementById('citySelect');
-
-            const phoneInput =
-                document.getElementById('phoneNumberInput');
-
-            const fullPhoneInput =
-                document.getElementById('fullPhoneInput');
-
-            const form =
-                document.getElementById('webinarForm');
-
-
-            /* =====================================================
-               LOAD COUNTRIES
-               ===================================================== */
-
-            const countries = Country.getAllCountries();
-
-
-            countries.forEach(country => {
-
-                /* COUNTRY OPTION */
-
-                const countryOption =
-                    document.createElement('option');
-
-                countryOption.value =
-                    country.name;
-
-                countryOption.textContent =
-                    country.name;
-
-                countryOption.setAttribute(
-                    'data-iso-code',
-                    country.isoCode
-                );
-
-                countrySelect.appendChild(
-                    countryOption
-                );
-
-
-                /* PHONE CODE OPTION */
-
-                if (country.phonecode) {
-
-                    const phoneOption =
-                        document.createElement('option');
-
-                    phoneOption.value =
-                        '+' + country.phonecode;
-
-                    phoneOption.textContent =
-                        '+' + country.phonecode +
-                        ' (' + country.isoCode + ')';
-
-                    phoneOption.setAttribute(
-                        'data-iso-code',
-                        country.isoCode
-                    );
-
-                    phoneCodeSelect.appendChild(
-                        phoneOption
-                    );
-
-                }
-
-            });
-
-
-            /* =====================================================
-               DEFAULT INDIA PHONE CODE
-               ===================================================== */
-
-            const indiaPhoneOption =
-                Array.from(
-                    phoneCodeSelect.options
-                ).find(
-                    option =>
-                        option.getAttribute('data-iso-code') === 'IN'
-                );
-
-
-            if (indiaPhoneOption) {
-
-                indiaPhoneOption.selected = true;
-
-            }
-
-
-            /* =====================================================
-               PHONE VALIDATION
-               ===================================================== */
-
-            function updatePhoneValidation() {
-
-                const selectedOption =
-                    phoneCodeSelect.options[
-                        phoneCodeSelect.selectedIndex
-                    ];
-
-
-                if (
-                    !selectedOption ||
-                    !selectedOption.value
-                ) {
-                    return;
-                }
-
-
-                const isoCode =
-                    selectedOption.getAttribute(
-                        'data-iso-code'
-                    );
-
-
-                /* Clear old number when country code changes */
-
-                phoneInput.value = '';
-
-
-                if (isoCode === 'IN') {
-
-                    phoneInput.setAttribute(
-                        'pattern',
-                        '[0-9]{10}'
-                    );
-
-                    phoneInput.setAttribute(
-                        'maxlength',
-                        '10'
-                    );
-
-                    phoneInput.setAttribute(
-                        'minlength',
-                        '10'
-                    );
-
-                    phoneInput.placeholder =
-                        '10-digit mobile number';
-
-                    phoneInput.title =
-                        'Please enter exactly 10 digits for your Indian mobile number';
-
-                }
-
-                else if (
-                    isoCode === 'US' ||
-                    isoCode === 'CA'
-                ) {
-
-                    phoneInput.setAttribute(
-                        'pattern',
-                        '[0-9]{10}'
-                    );
-
-                    phoneInput.setAttribute(
-                        'maxlength',
-                        '10'
-                    );
-
-                    phoneInput.setAttribute(
-                        'minlength',
-                        '10'
-                    );
-
-                    phoneInput.placeholder =
-                        '10-digit number';
-
-                    phoneInput.title =
-                        'Please enter a valid 10-digit phone number';
-
-                }
-
-                else {
-
-                    phoneInput.setAttribute(
-                        'pattern',
-                        '[0-9]{7,12}'
-                    );
-
-                    phoneInput.setAttribute(
-                        'maxlength',
-                        '12'
-                    );
-
-                    phoneInput.setAttribute(
-                        'minlength',
-                        '7'
-                    );
-
-                    phoneInput.placeholder =
-                        'Phone number';
-
-                    phoneInput.title =
-                        'Please enter a valid phone number (7 to 12 digits)';
-
-                }
-
-            }
-
-
-            phoneCodeSelect.addEventListener(
-                'change',
-                updatePhoneValidation
-            );
-
-
-            updatePhoneValidation();
-
-
-            /* =====================================================
-               PHONE NUMBER — ONLY DIGITS
-               ===================================================== */
-
-            phoneInput.addEventListener(
-                'input',
-                () => {
-
-                    phoneInput.value =
-                        phoneInput.value.replace(
-                            /[^0-9]/g,
-                            ''
-                        );
-
-                }
-            );
-
-
-            /* =====================================================
-               COUNTRY → PHONE CODE
-               COUNTRY → STATES
-               ===================================================== */
-
-            countrySelect.addEventListener(
-                'change',
-                () => {
-
-                    const selectedCountry =
-                        countrySelect.options[
-                            countrySelect.selectedIndex
-                        ];
-
-
-                    if (!selectedCountry) {
-                        return;
-                    }
-
-
-                    const countryCode =
-                        selectedCountry.getAttribute(
-                            'data-iso-code'
-                        );
-
-
-                    /* ---------------------------------------------
-                       Automatically select matching phone code
-                       --------------------------------------------- */
-
-                    const matchingPhoneOption =
-                        Array.from(
-                            phoneCodeSelect.options
-                        ).find(
-                            option =>
-                                option.getAttribute(
-                                    'data-iso-code'
-                                ) === countryCode
-                        );
-
-
-                    if (matchingPhoneOption) {
-
-                        phoneCodeSelect.value =
-                            matchingPhoneOption.value;
-
-                        updatePhoneValidation();
-
-                    }
-
-
-                    /* ---------------------------------------------
-                       Reset State
-                       --------------------------------------------- */
-
-                    stateSelect.innerHTML =
-                        `
-                        <option value="" disabled selected>
-                            Select Your State / Province
-                        </option>
-                        `;
-
-                    stateSelect.disabled = true;
-
-
-                    /* ---------------------------------------------
-                       Reset City
-                       --------------------------------------------- */
-
-                    citySelect.innerHTML =
-                        `
-                        <option value="" disabled selected>
-                            Select Your City / Location
-                        </option>
-                        `;
-
-                    citySelect.disabled = true;
-
-
-                    if (!countryCode) {
-                        return;
-                    }
-
-
-                    /* ---------------------------------------------
-                       Load States
-                       --------------------------------------------- */
-
-                    const states =
-                        State.getStatesOfCountry(
-                            countryCode
-                        );
-
-
-                    if (
-                        states &&
-                        states.length > 0
-                    ) {
-
-                        states.forEach(
-                            state => {
-
-                                const option =
-                                    document.createElement(
-                                        'option'
-                                    );
-
-                                option.value =
-                                    state.name;
-
-                                option.textContent =
-                                    state.name;
-
-                                option.setAttribute(
-                                    'data-state-code',
-                                    state.isoCode
-                                );
-
-                                option.setAttribute(
-                                    'data-country-code',
-                                    countryCode
-                                );
-
-                                stateSelect.appendChild(
-                                    option
-                                );
-
-                            }
-                        );
-
-
-                        stateSelect.disabled = false;
-
-                    }
-
-                    else {
-
-                        const option =
-                            document.createElement(
-                                'option'
-                            );
-
-                        option.value =
-                            countrySelect.value;
-
-                        option.textContent =
-                            'General / ' +
-                            countrySelect.value;
-
-                        option.setAttribute(
-                            'data-country-code',
-                            countryCode
-                        );
-
-                        stateSelect.appendChild(
-                            option
-                        );
-
-                        stateSelect.disabled = false;
-
-                    }
-
-                }
-            );
-
-
-            /* =====================================================
-               STATE → CITY
-               ===================================================== */
-
-            stateSelect.addEventListener(
-                'change',
-                () => {
-
-                    const selectedState =
-                        stateSelect.options[
-                            stateSelect.selectedIndex
-                        ];
-
-
-                    if (!selectedState) {
-                        return;
-                    }
-
-
-                    const stateCode =
-                        selectedState.getAttribute(
-                            'data-state-code'
-                        );
-
-                    const countryCode =
-                        selectedState.getAttribute(
-                            'data-country-code'
-                        );
-
-
-                    /* Reset City */
-
-                    citySelect.innerHTML =
-                        `
-                        <option value="" disabled selected>
-                            Select Your City / Location
-                        </option>
-                        `;
-
-                    citySelect.disabled = true;
-
-
-                    if (
-                        !stateCode ||
-                        !countryCode
-                    ) {
-                        return;
-                    }
-
-
-                    /* Load Cities */
-
-                    const cities =
-                        City.getCitiesOfState(
-                            countryCode,
-                            stateCode
-                        );
-
-
-                    if (
-                        cities &&
-                        cities.length > 0
-                    ) {
-
-                        cities.forEach(
-                            city => {
-
-                                const option =
-                                    document.createElement(
-                                        'option'
-                                    );
-
-                                option.value =
-                                    city.name;
-
-                                option.textContent =
-                                    city.name;
-
-                                citySelect.appendChild(
-                                    option
-                                );
-
-                            }
-                        );
-
-
-                        citySelect.disabled = false;
-
-                    }
-
-                    else {
-
-                        const option =
-                            document.createElement(
-                                'option'
-                            );
-
-                        option.value =
-                            stateSelect.value;
-
-                        option.textContent =
-                            'General / ' +
-                            stateSelect.value;
-
-                        citySelect.appendChild(
-                            option
-                        );
-
-                        citySelect.disabled = false;
-
-                    }
-
-                }
-            );
-
-
-            /* =====================================================
-               FORM SUBMISSION
-               ===================================================== */
-
-            form.addEventListener(
-                'submit',
-                () => {
-
-                    const code =
-                        phoneCodeSelect.value;
-
-                    const number =
-                        phoneInput.value.trim();
-
-
-                    fullPhoneInput.value =
-                        `${code} ${number}`;
-
-
-                    /*
-                       Google Forms receives the data through
-                       the hidden iframe.
-                    */
-
-                    setTimeout(
-                        () => {
-
-                            document
-                                .getElementById(
-                                    'header-helper-text'
-                                )
-                                .style.display =
-                                'none';
-
-
-                            document
-                                .getElementById(
-                                    'form-container'
-                                )
-                                .style.display =
-                                'none';
-
-
-                            document
-                                .getElementById(
-                                    'thankyou-container'
-                                )
-                                .style.display =
-                                'block';
-
-                        },
-                        700
-                    );
-
-                }
-            );
-
-        });
-
-    </script>
 
 </body>
 </html>

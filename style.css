@@ -1,7 +1,35 @@
+/* --------------------------------
+   BASIC RESET
+-------------------------------- */
+
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+}
+
+
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+
+body {
+    min-height: 100vh;
+
+    background-color: #fcfbfa;
+
+    display: flex;
+    justify-content: center;
+
+    padding:
+        max(48px, env(safe-area-inset-top))
+        16px
+        max(48px, env(safe-area-inset-bottom))
+        16px;
+
+    color: #1a1a1a;
+
     font-family:
         -apple-system,
         BlinkMacSystemFont,
@@ -13,20 +41,9 @@
 }
 
 
-body {
-    background-color: #fcfbfa;
-
-    min-height: 100vh;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    padding: 48px 16px;
-
-    color: #1a1a1a;
-}
-
+/* --------------------------------
+   PAGE
+-------------------------------- */
 
 .page-wrapper {
     width: 100%;
@@ -34,9 +51,9 @@ body {
 }
 
 
-/* =====================================================
+/* --------------------------------
    BRAND
-   ===================================================== */
+-------------------------------- */
 
 .brand-logo {
     font-size: 15px;
@@ -49,9 +66,9 @@ body {
 }
 
 
-/* =====================================================
+/* --------------------------------
    HERO
-   ===================================================== */
+-------------------------------- */
 
 .hero-header {
     margin-bottom: 28px;
@@ -62,7 +79,7 @@ body {
     font-size: 32px;
     font-weight: 450;
 
-    font-family: serif;
+    font-family: Georgia, serif;
 
     color: #1a1a1a;
 
@@ -104,41 +121,39 @@ body {
     width: 6px;
     height: 6px;
 
+    flex: 0 0 6px;
+
     background-color: #1a1a1a;
 
     border-radius: 50%;
-
-    display: inline-block;
-
-    flex-shrink: 0;
 }
 
 
-/* =====================================================
-   FORM CONTAINER
-   ===================================================== */
+/* --------------------------------
+   FORM CARD
+-------------------------------- */
 
 #form-container,
 #thankyou-container {
 
-    background: #ffffff;
-
     width: 100%;
+
+    background: #ffffff;
 
     padding: 36px;
 
     border-radius: 16px;
 
+    border: 1px solid #f0eeeb;
+
     box-shadow:
         0 10px 30px rgba(0, 0, 0, 0.02);
-
-    border: 1px solid #f0eeeb;
 }
 
 
-/* =====================================================
+/* --------------------------------
    FORM
-   ===================================================== */
+-------------------------------- */
 
 form {
     display: flex;
@@ -149,9 +164,9 @@ form {
 }
 
 
-/* =====================================================
+/* --------------------------------
    INPUTS
-   ===================================================== */
+-------------------------------- */
 
 input[type="text"],
 input[type="email"],
@@ -159,7 +174,7 @@ input[type="tel"] {
 
     width: 100%;
 
-    min-height: 42px;
+    min-height: 46px;
 
     padding: 12px 14px;
 
@@ -175,12 +190,11 @@ input[type="tel"] {
 
     outline: none;
 
-    transition:
-        border-color 0.2s ease,
-        background-color 0.2s ease,
-        box-shadow 0.2s ease;
+    font-family: inherit;
 
     -webkit-appearance: none;
+
+    appearance: none;
 }
 
 
@@ -189,123 +203,85 @@ input::placeholder {
 }
 
 
-input:focus {
-
-    border-color: #1a1a1a;
-
-    background-color: #ffffff;
-
-    box-shadow:
-        0 0 0 3px rgba(26, 26, 26, 0.04);
-}
-
-
-/* =====================================================
+/* --------------------------------
    PHONE GROUP
-   ===================================================== */
+-------------------------------- */
 
 .phone-group {
+    width: 100%;
 
     display: flex;
 
     gap: 8px;
-
-    width: 100%;
 }
 
 
-.phone-code-wrapper {
-
+.phone-group select {
     flex: 0 0 140px;
 }
 
 
 .phone-group input[type="tel"] {
-
     flex: 1;
-
     min-width: 0;
 }
 
 
-/* =====================================================
-   SELECT WRAPPER
-   IMPORTANT FOR iOS SAFARI
-   ===================================================== */
+/* --------------------------------
+   NATIVE SELECTS
+-------------------------------- */
 
-.select-wrapper {
+/*
+   IMPORTANT FOR IOS:
 
-    position: relative;
+   We intentionally DO NOT use
+   appearance: none on selects.
 
-    display: block;
+   iPhone Safari handles native
+   select elements reliably.
+*/
+
+select {
 
     width: 100%;
+
+    min-height: 46px;
+
+    padding: 12px 14px;
+
+    font-size: 13px;
+
+    font-family: inherit;
+
+    color: #1a1a1a;
+
+    background-color: #faf8f5;
 
     border: 1px solid #e5e2de;
 
     border-radius: 8px;
 
-    background-color: #faf8f5;
-
-    /*
-       IMPORTANT:
-       No overflow:hidden.
-       This allows iOS Safari to display its
-       native picker correctly.
-    */
-
-    transition:
-        border-color 0.2s ease,
-        background-color 0.2s ease,
-        box-shadow 0.2s ease;
-}
-
-
-/* =====================================================
-   SELECT
-   ===================================================== */
-
-.select-wrapper select {
-
-    display: block;
-
-    width: 100%;
-
-    min-height: 42px;
-
-    padding: 12px 14px;
-
-    border: none;
-
     outline: none;
 
-    background: transparent;
-
-    font-family: inherit;
-
-    font-size: 13px;
-
-    color: #1a1a1a;
-
-    box-shadow: none;
-
-    cursor: pointer;
-
     /*
-       CRITICAL:
-       Do NOT use appearance:none here.
-
-       iPhone Safari gets to use its
-       native select picker.
+       Keep native iOS dropdown
+       behavior.
     */
 
-    -webkit-appearance: auto;
+    -webkit-appearance: menulist;
 
     appearance: auto;
+
+    cursor: pointer;
 }
 
 
-.select-wrapper:focus-within {
+/* --------------------------------
+   FOCUS
+-------------------------------- */
+
+input:focus,
+select:focus {
 
     border-color: #1a1a1a;
 
@@ -316,11 +292,11 @@ input:focus {
 }
 
 
-/* =====================================================
+/* --------------------------------
    DISABLED SELECTS
-   ===================================================== */
+-------------------------------- */
 
-.select-wrapper select:disabled {
+select:disabled {
 
     background-color: #f3f1ed;
 
@@ -332,22 +308,24 @@ input:focus {
 }
 
 
-.select-wrapper:has(select:disabled) {
-
-    background-color: #f3f1ed;
-
-    border-color: #e5e2de;
-
-    cursor: not-allowed;
-}
-
-
-/* =====================================================
+/* --------------------------------
    SUBMIT BUTTON
-   ===================================================== */
+-------------------------------- */
 
 button[type="submit"],
 .thankyou-actions button {
+
+    width: 100%;
+
+    min-height: 46px;
+
+    padding: 13px 20px;
+
+    margin-top: 4px;
+
+    border: none;
+
+    border-radius: 8px;
 
     background: #1a1a1a;
 
@@ -357,55 +335,31 @@ button[type="submit"],
 
     font-weight: 500;
 
-    padding: 13px 20px;
-
-    border: none;
-
-    border-radius: 8px;
+    font-family: inherit;
 
     cursor: pointer;
 
-    width: 100%;
+    -webkit-appearance: none;
 
-    transition:
-        background-color 0.2s ease;
-
-    margin-top: 4px;
+    appearance: none;
 }
 
 
 button[type="submit"]:hover {
-
     background: #333333;
 }
 
 
-/* =====================================================
+button[type="submit"]:active {
+    transform: translateY(1px);
+}
+
+
+/* --------------------------------
    THANK YOU
-   ===================================================== */
-
-.thankyou-actions {
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 10px;
-
-    margin-top: 20px;
-}
-
-
-.thankyou-actions a {
-
-    text-decoration: none;
-
-    display: block;
-}
-
+-------------------------------- */
 
 #thankyou-container {
-
     text-align: center;
 }
 
@@ -432,52 +386,61 @@ button[type="submit"]:hover {
 }
 
 
-/* =====================================================
+/* --------------------------------
    THANK YOU BUTTONS
-   ===================================================== */
+-------------------------------- */
 
-.whatsapp-btn {
+.thankyou-actions {
 
-    background: #25d366 !important;
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+
+    margin-top: 20px;
 }
 
 
-.whatsapp-btn:hover {
-
-    background: #22bf5b !important;
+.thankyou-actions a {
+    text-decoration: none;
 }
 
 
 .website-btn {
-
     background: #1a1a1a !important;
-
     color: #ffffff !important;
 }
 
 
 .website-btn:hover {
-
     background: #333333 !important;
 }
 
 
-/* =====================================================
-   MOBILE
-   ===================================================== */
+.whatsapp-btn {
+    background: #25d366 !important;
+}
 
-@media (max-width: 480px) {
+
+.whatsapp-btn:hover {
+    background: #22bf5b !important;
+}
+
+
+/* --------------------------------
+   MOBILE / IPHONE
+-------------------------------- */
+
+@media (max-width: 520px) {
 
     body {
+        align-items: flex-start;
 
         padding:
-            32px 14px;
-    }
-
-
-    .hero-header h1 {
-
-        font-size: 29px;
+            32px 14px
+            max(32px, env(safe-area-inset-bottom))
+            14px;
     }
 
 
@@ -490,23 +453,36 @@ button[type="submit"]:hover {
     }
 
 
-    .phone-group {
+    .hero-header h1 {
+        font-size: 29px;
+    }
 
+
+    .phone-group {
         gap: 7px;
     }
 
 
-    .phone-code-wrapper {
+    .phone-group select {
+        flex: 0 0 125px;
+    }
 
-        flex: 0 0 118px;
+}
+
+
+/* --------------------------------
+   VERY SMALL PHONES
+-------------------------------- */
+
+@media (max-width: 360px) {
+
+    .phone-group {
+        flex-direction: column;
     }
 
 
-    .select-wrapper select {
-
-        padding-left: 12px;
-
-        padding-right: 8px;
+    .phone-group select {
+        width: 100%;
     }
 
 }
